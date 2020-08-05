@@ -2,11 +2,12 @@
   <div class="welcome">
     <h1>{{ title }}</h1>
 
-    <form>
-      <label>What is your name?</label>
-      <input v-model="name" />
-      <button @click.prevent="setName">Enter</button>
-    </form>
+    <div class="form">
+      <label>Please enter your name:</label>
+      <input @enter.prevent v-model="name" />
+    </div>
+
+    <router-link to="/scene/start">Start</router-link>
   </div>
 </template>
 
@@ -17,30 +18,39 @@ export default {
     title: String
   },
   data() {
-    return {
-      name: ""
-    };
+    return {}
   },
-  methods: {
-    setName() {
-      this.$store.state.player.name = this.name;
+  computed: {
+    name: {
+      get() {
+        return this.$store.state.player.name
+      },
+      set(name) {
+        this.$store.commit("updateName", name)
+      }
     }
   }
-};
+}
 </script>
 
 <style scoped lang="scss">
 .welcome {
+  text-align: center;
 }
+
 h3 {
   margin: 40px 0 0;
 }
-form {
-}
+
 label {
   margin-right: 4px;
 }
+
 button {
   margin-left: 0px;
+}
+
+.form {
+  margin-bottom: 12px;
 }
 </style>
