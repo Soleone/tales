@@ -64,6 +64,10 @@ export default {
       if (action.result) {
         this.$store.commit("setResult", action.result)
       }
+      if (action.moment) {
+        this.$store.commit("setMoment", action.moment)
+        setTimeout(() => this.$store.commit("setResult", null), 3000)
+      }
       console.log(this.currentResult)
     }
   }
@@ -74,6 +78,10 @@ export default {
 .scene {
   width: 800px;
   margin: 0 auto;
+}
+.result {
+  background-color: #f9f9f9;
+  padding: 8px;
 }
 h3 {
   margin: 40px 0 0;
