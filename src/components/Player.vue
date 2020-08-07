@@ -1,6 +1,8 @@
 <template>
   <span class="player">
-    <a href="" @click.prevent="toggleDetails" title="Toggle details">Inventory</a>
+    <a href="" @click.prevent="toggleDetails" title="Toggle details">
+      Inventory
+    </a>
 
     <div class="details" v-show="showingDetails">
       <ul class="inventory">

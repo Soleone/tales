@@ -9,7 +9,11 @@
       <p v-show="actions.length">You can:</p>
       <ul>
         <li v-for="action in actions" :key="action.id">
-          <a href="#" :title="action.id" @click.prevent="handleAction(action.id)">
+          <a
+            href="#"
+            :title="action.id"
+            @click.prevent="handleAction(action.id)"
+          >
             {{ action.description }}
           </a>
         </li>

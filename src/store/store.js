@@ -23,7 +23,7 @@ export default createStore({
     actions(state, getters) {
       return getters.options.map(option => new Action(option))
     },
-    actionById: (state, getters) => (id) => {
+    actionById: (state, getters) => id => {
       console.log(id)
       return getters.actions.find(action => action.id === id)
     }
