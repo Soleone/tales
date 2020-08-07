@@ -1,17 +1,20 @@
 <template>
-  <Player />
-
   <div class="scene">
-    <h1 :title="id">{{ title }}</h1>
-    <p :title="currentMoment">{{ moment.description }}</p>
+    <div class="vignette">
+      <h1 :title="id">{{ scene.title }}</h1>
+      <p :title="currentMoment">{{ moment.description }}</p>
+    </div>
 
     <div class="actions">
-      <p>You can:</p>
+      <p v-show="actions.length">You can:</p>
       <ul>
-        <li v-for="(action, id) in actions" :key="id">
-          <a href="#" :title="id" @click.prevent="handleAction(id)">
+        <li v-for="action in actions" :key="action.id">
+          <a href="#" :title="action.id" @click.prevent="handleAction(action.id)">
             {{ action.description }}
           </a>
+        </li>
+        <li>
+          <Player />
         </li>
       </ul>
     </div>
@@ -23,8 +26,9 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex"
+import * as Constants from "@/store/constants"
 import Player from "@/components/Player.vue"
-import { mapState } from "vuex"
 
 export default {
   name: "Scene",
@@ -38,37 +42,28 @@ export default {
     return {}
   },
   created() {
-    this.$store.commit("setScene", this.id)
-    const startingMoment = Object.keys(this.scene.moments)[0]
-    this.$store.commit("setMoment", startingMoment)
+    this.$store.dispatch(Constants.SET_SCENE, this.id)
+    const startingMoment = Object.keys(this.$store.getters.scene.moments)[0]
+    this.$store.dispatch(Constants.SET_MOMENT, startingMoment)
   },
   computed: {
     ...mapState(["currentScene", "currentMoment", "currentResult"]),
-    scene() {
-      return this.$store.state.scenes[this.currentScene]
-    },
-    title() {
-      return this.scene.title
-    },
-    moment() {
-      return this.scene.moments[this.currentMoment]
-    },
-    actions() {
-      return this.moment.actions
-    }
+    ...mapGetters(["scene", "moment", "options", "actions"])
   },
   methods: {
     handleAction(id) {
-      console.log("Action: " + id)
-      const action = this.actions[id]
+      const action = this.$store.getters.actionById(id)
+      console.log(action)
       if (action.result) {
-        this.$store.commit("setResult", action.result)
+        this.$store.dispatch(Constants.SET_RESULT, action.result)
       }
+
       if (action.moment) {
-        this.$store.commit("setMoment", action.moment)
-        setTimeout(() => this.$store.commit("setResult", null), 3000)
+        this.$store.dispatch(Constants.SET_MOMENT, action.moment)
+        setTimeout(() => {
+          this.$store.dispatch(Constants.SET_RESULT, null)
+        }, 3000)
       }
-      console.log(this.currentResult)
     }
   }
 }
@@ -79,16 +74,29 @@ export default {
   width: 800px;
   margin: 0 auto;
 }
+
+.vignette {
+  padding: 16px;
+  background-color: #f9f9f9;
+}
+
 .result {
   background-color: #f9f9f9;
   padding: 8px;
 }
+
 h3 {
   margin: 40px 0 0;
 }
+
 .actions {
   text-align: left;
 }
+
+.actions .done {
+  text-decoration: line-through;
+}
+
 ul {
 }
 li {

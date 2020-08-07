@@ -1,9 +1,8 @@
 <template>
-  <div class="player">
-    <a href="" @click.prevent="toggleDetails" title="Toggle details">{{ name }}</a>
+  <span class="player">
+    <a href="" @click.prevent="toggleDetails" title="Toggle details">Inventory</a>
 
     <div class="details" v-show="showingDetails">
-      <p>Inventory</p>
       <ul class="inventory">
         <li v-for="(item, id) in items" :key="id">
           <a href="#" @click.prevent="useItem(id)">
@@ -12,11 +11,12 @@
         </li>
       </ul>
     </div>
-  </div>
+  </span>
 </template>
 
 <script>
 import { mapState } from "vuex"
+import { HANDLE_ITEM } from "@/store/constants.js"
 
 export default {
   name: "Player",
@@ -36,7 +36,7 @@ export default {
       this.showingDetails = !this.showingDetails
     },
     useItem(id) {
-      this.$store.commit("handleItem", id)
+      this.$store.dispatch(HANDLE_ITEM, id)
     }
   }
 }
@@ -44,12 +44,10 @@ export default {
 
 <style scoped lang="scss">
 .player {
-  position: fixed;
-  top: 100px;
-  right: -200px;
-  width: 400px;
-  margin-left: auto;
-  background-color: #f9f9f9;
-  padding: 8px;
+  //width: 200px;
+  //margin-left: auto;
+  //text-align: left;
+  //background-color: #f9f9f9;
+  //padding: 8px;
 }
 </style>

@@ -1,0 +1,6 @@
+export const SET_NAME = "SET_NAME"
+export const SET_SCENE = "SET_SCENE"
+export const SET_MOMENT = "SET_MOMENT"
+export const SET_RESULT = "SET_RESULT"
+export const PICK_UP_ITEM = "PICK_UP_ITEM"
+export const HANDLE_ITEM = "HANDLE_ITEM"

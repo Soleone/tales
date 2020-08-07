@@ -4,7 +4,7 @@
 
     <div class="form">
       <label>Please enter your name:</label>
-      <input @enter.prevent v-model="name" />
+      <input ref="name" @keyup.enter="start" v-model="name" />
     </div>
 
     <router-link to="/scene/start">Start</router-link>
@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import { SET_NAME } from "@/store/constants.js"
+
 export default {
   name: "Welcome",
   props: {
@@ -20,14 +22,30 @@ export default {
   data() {
     return {}
   },
+  mounted() {
+    this.focusInput()
+  },
   computed: {
     name: {
       get() {
         return this.$store.state.player.name
       },
       set(name) {
-        this.$store.commit("updateName", name)
+        if (name && name[0] === name[0].toLowerCase()) {
+          name = name[0].toUpperCase() + name.substring(1)
+          console.log(name)
+        }
+        this.$store.dispatch(SET_NAME, name)
       }
+    }
+  },
+  methods: {
+    focusInput() {
+      this.$refs.name.focus()
+    },
+    start() {
+      console.log("start")
+      this.$router.push({name: "scene", params: { id: "start" } })
     }
   }
 }
