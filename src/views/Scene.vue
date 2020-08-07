@@ -2,7 +2,7 @@
   <div class="scene">
     <div class="vignette">
       <h1 :title="id">{{ scene.title }}</h1>
-      <p :title="currentMoment">{{ moment.description }}</p>
+      <p v-if="moment" :title="momentName">{{ moment.description }}</p>
     </div>
 
     <div class="actions">
@@ -23,8 +23,8 @@
       </ul>
     </div>
 
-    <div class="result" v-show="currentResult">
-      {{ currentResult }}
+    <div class="result" v-show="result">
+      {{ result }}
     </div>
   </div>
 </template>
@@ -47,17 +47,17 @@ export default {
   },
   created() {
     this.$store.dispatch(Constants.SET_SCENE, this.id)
-    const startingMoment = Object.keys(this.$store.getters.scene.moments)[0]
-    this.$store.dispatch(Constants.SET_MOMENT, startingMoment)
+    const startingMoment = this.$store.getters.scene.moments[0]
+    this.$store.dispatch(Constants.SET_MOMENT, startingMoment.id)
   },
   computed: {
-    ...mapState(["currentScene", "currentMoment", "currentResult"]),
+    ...mapState(["sceneName", "momentName", "result"]),
     ...mapGetters(["scene", "moment", "options", "actions"])
   },
   methods: {
     handleAction(id) {
       const action = this.$store.getters.actionById(id)
-      console.log(action)
+
       if (action.result) {
         this.$store.dispatch(Constants.SET_RESULT, action.result)
       }

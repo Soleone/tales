@@ -1,9 +1,12 @@
+/* eslint-disable */
 export const state = {
-  scenes: {
-    start: {
+  scenes: [
+    {
+      id: "start",
       title: "In your bed",
-      moments: {
-        knock: {
+      moments: [
+        {
+          id: "knock",
           description: "You hear a loud knock on the door.",
           options: [
             {
@@ -34,7 +37,8 @@ export const state = {
             }
           }
         },
-        door: {
+        {
+          id: "door",
           description: "You get close to your front door.",
           options: [
             {
@@ -44,7 +48,8 @@ export const state = {
             }
           ]
         },
-        phone: {
+        {
+          id: "phone",
           description: "You look at your home screen which is way too packed with icons.",
           options: [
             {
@@ -60,11 +65,12 @@ export const state = {
             }
           ]
         },
-        intensify: {
+        {
+          id: "intensify",
           description: "After a few seconds the knocking becomes even louder.",
           options: []
         }
-      }
+      ]
     }
-  }
+  ]
 }

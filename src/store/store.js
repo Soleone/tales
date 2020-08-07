@@ -12,10 +12,12 @@ export default createStore({
   actions,
   getters: {
     scene(state) {
-      return state.scenes.scenes[state.currentScene]
+      return state.scenes.scenes.find(scene => scene.id === state.sceneName)
     },
     moment(state, getters) {
-      return getters.scene.moments[state.currentMoment]
+      return getters.scene.moments.find(moment => {
+        return moment.id === state.momentName
+      })
     },
     options(state, getters) {
       return getters.moment.options
@@ -24,20 +26,19 @@ export default createStore({
       return getters.options.map(option => new Action(option))
     },
     actionById: (state, getters) => id => {
-      console.log(id)
       return getters.actions.find(action => action.id === id)
     }
   },
   state: {
+    sceneName: null,
+    momentName: null,
+    result: null,
     player: {
       name: "",
       items: {
         lighter: "Lighter",
         phone: "Phone"
       }
-    },
-    currentScene: null,
-    currentMoment: null,
-    currentResult: null
+    }
   }
 })

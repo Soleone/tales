@@ -5,14 +5,14 @@ export const mutations = {
     state.player.name = name
   },
   [Constants.SET_SCENE](state, id) {
-    state.currentScene = id
-    state.currentresult = null
+    state.sceneName = id
+    state.result = null
   },
   [Constants.SET_MOMENT](state, moment) {
-    state.currentMoment = moment
+    state.momentName = moment
   },
   [Constants.SET_RESULT](state, result) {
-    state.currentResult = result
+    state.result = result
   },
   [Constants.PICK_UP_ITEM](state, item) {
     state.items.push(item)
@@ -21,6 +21,6 @@ export const mutations = {
     console.log("Using item " + item)
   },
   [Constants.HANDLE_ACTION]() {
-    // TODO
+    console.log("Executing action ")
   }
 }

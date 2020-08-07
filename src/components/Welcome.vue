@@ -33,7 +33,6 @@ export default {
       set(name) {
         if (name && name[0] === name[0].toLowerCase()) {
           name = name[0].toUpperCase() + name.substring(1)
-          console.log(name)
         }
         this.$store.dispatch(SET_NAME, name)
       }
@@ -44,8 +43,7 @@ export default {
       this.$refs.name.focus()
     },
     start() {
-      console.log("start")
-      this.$router.push({name: "scene", params: { id: "start" } })
+      this.$router.push({ name: "scene", params: { id: "start" } })
     }
   }
 }

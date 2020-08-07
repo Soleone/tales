@@ -16,7 +16,10 @@ export const actions = {
   [Constants.PICK_UP_ITEM]({ commit }, item) {
     commit(Constants.PICK_UP_ITEM, item)
   },
-  [Constants.HANDLE_ITEM](_, item) {
-    console.log("Using item " + item)
+  [Constants.HANDLE_ACTION](commit, id) {
+    commit(Constants.HANDLE_ACTION, id)
+  },
+  [Constants.HANDLE_ITEM](commit, item) {
+    commit(Constants.HANDLE_ITEM, item)
   }
 }
