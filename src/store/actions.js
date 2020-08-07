@@ -10,6 +10,12 @@ export const actions = {
   [Constants.SET_MOMENT]({ commit }, moment) {
     commit(Constants.SET_MOMENT, moment)
   },
+  [Constants.TRANSITION_MOMENT]({ dispatch }, moment) {
+    dispatch(Constants.SET_MOMENT, moment)
+    setTimeout(() => {
+      dispatch(Constants.SET_RESULT, null)
+    }, 3000)
+  },
   [Constants.SET_RESULT]({ commit }, result) {
     commit(Constants.SET_RESULT, result)
   },
@@ -24,13 +30,25 @@ export const actions = {
     }
 
     if (action.moment) {
-      dispatch(Constants.SET_MOMENT, action.moment)
-      setTimeout(() => {
-        dispatch(Constants.SET_RESULT, null)
-      }, 3000)
+      dispatch(Constants.TRANSITION_MOMENT, action.moment)
     }
   },
-  [Constants.HANDLE_ITEM]({ commit }, item) {
-    commit(Constants.HANDLE_ITEM, item)
+  [Constants.HANDLE_ITEM]({ dispatch, getters }, itemId) {
+    if (!getters.moment.items) {
+      return
+    }
+    const momentItem = getters.moment.items.find(item => item.id === itemId)
+
+    if (momentItem) {
+      if (momentItem.result) {
+        dispatch(Constants.SET_RESULT, momentItem.result)
+      }
+
+      if (momentItem.moment) {
+        dispatch(Constants.TRANSITION_MOMENT, momentItem.moment)
+      }
+    } else {
+      console.log("TODO: Display item default message")
+    }
   }
 }

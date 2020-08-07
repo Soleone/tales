@@ -27,15 +27,17 @@ export const state = {
               moment: "door"
             }
           ],
-          items: {
-            lighter: {
+          items: [
+            {
+              id: "lighter",
               result: "It lights up briefly but you decide to not waste any gas."
             },
-            phone: {
+            {
+              id: "phone",
               result: "You unlock it with your fingerprint.",
               moment: "phone"
             }
-          }
+          ]
         },
         {
           id: "door",
@@ -50,7 +52,7 @@ export const state = {
         },
         {
           id: "phone",
-          description: "You look at your home screen which is way too packed with icons.",
+          description: "You look at your phone home screen which is slightly overcrowded with icons.",
           options: [
             {
               id: "irrigation",
