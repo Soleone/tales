@@ -16,10 +16,21 @@ export const actions = {
   [Constants.PICK_UP_ITEM]({ commit }, item) {
     commit(Constants.PICK_UP_ITEM, item)
   },
-  [Constants.HANDLE_ACTION](commit, id) {
-    commit(Constants.HANDLE_ACTION, id)
+  [Constants.HANDLE_ACTION]({ dispatch, getters }, actionId) {
+    const action = getters.actionById(actionId)
+
+    if (action.result) {
+      dispatch(Constants.SET_RESULT, action.result)
+    }
+
+    if (action.moment) {
+      dispatch(Constants.SET_MOMENT, action.moment)
+      setTimeout(() => {
+        dispatch(Constants.SET_RESULT, null)
+      }, 3000)
+    }
   },
-  [Constants.HANDLE_ITEM](commit, item) {
+  [Constants.HANDLE_ITEM]({ commit }, item) {
     commit(Constants.HANDLE_ITEM, item)
   }
 }

@@ -12,7 +12,7 @@
           <a
             href="#"
             :title="action.id"
-            @click.prevent="handleAction(action.id)"
+            @click.prevent="HANDLE_ACTION(action.id)"
           >
             {{ action.description }}
           </a>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex"
+import { mapState, mapGetters, mapActions } from "vuex"
 import * as Constants from "@/store/constants"
 import Player from "@/components/Player.vue"
 
@@ -55,20 +55,7 @@ export default {
     ...mapGetters(["scene", "moment", "options", "actions"])
   },
   methods: {
-    handleAction(id) {
-      const action = this.$store.getters.actionById(id)
-
-      if (action.result) {
-        this.$store.dispatch(Constants.SET_RESULT, action.result)
-      }
-
-      if (action.moment) {
-        this.$store.dispatch(Constants.SET_MOMENT, action.moment)
-        setTimeout(() => {
-          this.$store.dispatch(Constants.SET_RESULT, null)
-        }, 3000)
-      }
-    }
+    ...mapActions([Constants.HANDLE_ACTION])
   }
 }
 </script>

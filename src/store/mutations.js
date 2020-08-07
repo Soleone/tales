@@ -19,8 +19,5 @@ export const mutations = {
   },
   [Constants.HANDLE_ITEM](state, item) {
     console.log("Using item " + item)
-  },
-  [Constants.HANDLE_ACTION]() {
-    console.log("Executing action ")
   }
 }

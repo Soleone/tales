@@ -7,7 +7,7 @@
     <div class="details" v-show="showingDetails">
       <ul class="inventory">
         <li v-for="(item, id) in items" :key="id">
-          <a href="#" @click.prevent="useItem(id)">
+          <a href="#" @click.prevent="HANDLE_ITEM(id)">
             {{ item }}
           </a>
         </li>
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
+import { mapState, mapActions } from "vuex"
 import { HANDLE_ITEM } from "@/store/constants.js"
 
 export default {
@@ -34,11 +34,9 @@ export default {
     })
   },
   methods: {
+    ...mapActions([HANDLE_ITEM]),
     toggleDetails() {
       this.showingDetails = !this.showingDetails
-    },
-    useItem(id) {
-      this.$store.dispatch(HANDLE_ITEM, id)
     }
   }
 }
