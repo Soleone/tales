@@ -6,9 +6,9 @@
 
     <div class="details" v-show="showingDetails">
       <ul class="inventory">
-        <li v-for="(item, id) in items" :key="id">
-          <a href="#" @click.prevent="HANDLE_ITEM(id)">
-            {{ item }}
+        <li v-for="item in items" :key="item.id">
+          <a href="#" @click.prevent="HANDLE_ITEM(item.id)">
+            {{ item.name }}
           </a>
         </li>
       </ul>

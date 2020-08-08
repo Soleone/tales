@@ -1,18 +1,18 @@
 import { createStore } from "vuex"
 import Action from "@/models/action.js"
-import * as scenes from "./modules/scenes.js"
+import * as data from "./modules/data.js"
 import { mutations } from "./mutations.js"
 import { actions } from "./actions.js"
 
 export default createStore({
   modules: {
-    scenes
+    data
   },
   mutations,
   actions,
   getters: {
     scene(state) {
-      return state.scenes.scenes.find(scene => scene.id === state.sceneName)
+      return state.data.scenes.find(scene => scene.id === state.sceneName)
     },
     moment(state, getters) {
       return getters.scene.moments.find(moment => {
@@ -25,20 +25,27 @@ export default createStore({
     actions(state, getters) {
       return getters.options.map(option => new Action(option))
     },
-    actionById: (state, getters) => id => {
-      return getters.actions.find(action => action.id === id)
+    actionById: (state, getters) => actionId => {
+      return getters.actions.find(action => action.id === actionId)
+    },
+    itemById: state => itemId => {
+      return state.data.items.find(item => item.id === itemId)
     }
   },
   state: {
     sceneName: null,
     momentName: null,
+    actions: [],
+    log: {
+      actions: [],
+      results: [],
+      scenes: [],
+      moments: []
+    },
     result: null,
     player: {
       name: "",
-      items: {
-        lighter: "Lighter",
-        phone: "Phone"
-      }
+      items: []
     }
   }
 })

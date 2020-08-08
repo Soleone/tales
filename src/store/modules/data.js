@@ -30,7 +30,7 @@ export const state = {
           items: [
             {
               id: "lighter",
-              result: "It lights up briefly but you decide to not waste any gas."
+              result: "You look at the pillow. You look at the lighter. Your finger twitches, but you decide to keep the moral high ground."
             },
             {
               id: "phone",
@@ -72,6 +72,26 @@ export const state = {
           description: "After a few seconds the knocking becomes even louder.",
           options: []
         }
+      ]
+    }
+  ],
+  items: [
+    {
+      id: "lighter",
+      name: "Lighter",
+      description: "A golden metal lighter with a small gas compartment. Not empty yet.",
+      usageMessages: [
+        "It lights up briefly but you decide to not waste any gas.",
+        "You don't feel like trying to set fire here."
+      ]
+    },
+    {
+      id: "phone",
+      name: "Phone",
+      description: "A fairly modern phone with a mobile operating system. You haven't added a credit card to the account so the set of apps is somewhat limited.",
+      usageMessages: [
+        "You check your emails, but nothing new.",
+        "You open social media, but get angry pretty quickly and decide to close it again."
       ]
     }
   ]

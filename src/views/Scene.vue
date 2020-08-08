@@ -13,6 +13,7 @@
             href="#"
             :title="action.id"
             @click.prevent="HANDLE_ACTION(action.id)"
+            :class="{ done: action.done }"
           >
             {{ action.description }}
           </a>
@@ -49,10 +50,14 @@ export default {
     this.$store.dispatch(Constants.SET_SCENE, this.id)
     const startingMoment = this.$store.getters.scene.moments[0]
     this.$store.dispatch(Constants.SET_MOMENT, startingMoment.id)
+
+    if (this.id === "start") {
+      this.$store.dispatch(Constants.NEW_GAME)
+    }
   },
   computed: {
-    ...mapState(["sceneName", "momentName", "result"]),
-    ...mapGetters(["scene", "moment", "options", "actions"])
+    ...mapState(["sceneName", "momentName", "result", "actions"]),
+    ...mapGetters(["scene", "moment", "options"])
   },
   methods: {
     ...mapActions([Constants.HANDLE_ACTION])
