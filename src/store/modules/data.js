@@ -23,7 +23,7 @@ export const state = {
             {
               id: "up",
               description: "Get up and walk to the door",
-              result: "You quietly get out of bed and tippy toe towards the door.",
+              result: "You quietly get out of bed and tippy-toe towards the door.",
               moment: "door"
             }
           ],
@@ -41,12 +41,18 @@ export const state = {
         },
         {
           id: "door",
-          description: "You get close to your front door.",
+          description: "You get close to the inside of your front door.",
           options: [
             {
               id: "doorspy",
               description: "Cautiously look through the door spy",
               result: "You see what looks to be a man and a woman talking to each other."
+            },
+            {
+              id: "wait-door",
+              description: "Wait until they leave",
+              result: "It's been several minutes now and they are arguing with each other, but don't seem to want to leave yet.",
+              moment: "intensify"
             }
           ]
         },
@@ -75,6 +81,7 @@ export const state = {
       ]
     }
   ],
+  actions: [], // TODO: Make actions global here so they can be re-used between moments
   items: [
     {
       id: "lighter",
