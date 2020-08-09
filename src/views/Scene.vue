@@ -14,9 +14,8 @@
             :title="action.id"
             @click.prevent="HANDLE_ACTION(action.id)"
             :class="{ done: action.done }"
+            >{{ action.description }}</a
           >
-            {{ action.description }}
-          </a>
         </li>
         <li>
           <Player />
@@ -24,19 +23,17 @@
       </ul>
     </div>
 
-    <div class="result" v-show="result">
-      {{ result }}
-    </div>
+    <div class="result" v-show="result">{{ result }}</div>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from "vuex"
-import * as Constants from "@/store/constants"
-import Player from "@/components/Player.vue"
+import { mapState, mapGetters, mapActions } from 'vuex'
+import * as Constants from '@/store/constants'
+import Player from '@/components/Player.vue'
 
 export default {
-  name: "Scene",
+  name: 'Scene',
   components: {
     Player
   },
@@ -51,13 +48,13 @@ export default {
     const startingMoment = this.$store.getters.scene.moments[0]
     this.$store.dispatch(Constants.SET_MOMENT, startingMoment.id)
 
-    if (this.id === "start") {
+    if (this.id === 'start') {
       this.$store.dispatch(Constants.NEW_GAME)
     }
   },
   computed: {
-    ...mapState(["sceneName", "momentName", "result", "actions"]),
-    ...mapGetters(["scene", "moment", "options"])
+    ...mapState(['sceneName', 'momentName', 'result', 'actions']),
+    ...mapGetters(['scene', 'moment', 'options'])
   },
   methods: {
     ...mapActions([Constants.HANDLE_ACTION])
@@ -93,8 +90,6 @@ h3 {
   text-decoration: line-through;
 }
 
-ul {
-}
 li {
   text-align: left;
 }

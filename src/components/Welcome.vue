@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import { SET_NAME } from "@/store/constants.js"
+import { SET_NAME } from '@/store/constants.js'
 
 export default {
-  name: "Welcome",
+  name: 'Welcome',
   props: {
     title: String
   },
@@ -43,7 +43,7 @@ export default {
       this.$refs.name.focus()
     },
     start() {
-      this.$router.push({ name: "scene", params: { id: "start" } })
+      this.$router.push({ name: 'scene', params: { id: 'start' } })
     }
   }
 }

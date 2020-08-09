@@ -1,5 +1,5 @@
 {
-  "name": "Tales",
+  "name": "tales",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -40,7 +40,7 @@
     },
     "extends": [
       "plugin:vue/vue3-essential",
-      "eslint:recommended",
+      "plugin:prettier/recommended",
       "@vue/prettier"
     ],
     "parserOptions": {
