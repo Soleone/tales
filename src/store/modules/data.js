@@ -21,6 +21,11 @@ export const state = {
         {
           id: 'intensify',
           description: 'After a few seconds the knocking becomes even louder.'
+        },
+        {
+          id: 'door-open',
+          description:
+            'One of the two people is asking: "Hi, would you mind donating for the good cause?"'
         }
       ]
     }
@@ -35,6 +40,23 @@ export const state = {
         }
       ],
       result: "It's 11:55am in the morning."
+    },
+    {
+      id: 'open-door',
+      description: 'Open your front door',
+      contexts: [
+        {
+          moment: 'knock-bed'
+        },
+        {
+          moment: 'intensify'
+        },
+        {
+          moment: 'door'
+        }
+      ],
+      result: 'You release the lock and open the door.',
+      moment: 'door-open'
     },
     {
       id: 'wait',
@@ -136,10 +158,22 @@ export const state = {
           contexts: [
             {
               moment: 'knock-bed'
+            },
+            {
+              moment: 'intensify'
             }
           ],
           result: 'You unlock it with your fingerprint.',
           moment: 'phone'
+        },
+        {
+          contexts: [
+            {
+              moment: 'door-open'
+            }
+          ],
+          result:
+            'The man seems slightly irritated: "Hey, would you mind talking to us right now??"'
         }
       ],
       usageMessages: [

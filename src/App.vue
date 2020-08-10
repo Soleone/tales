@@ -2,7 +2,6 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Welcome</router-link> |
-      <router-link to="/scene/start">Start</router-link> |
       <router-link to="/about">About</router-link>
     </div>
     <router-view />
