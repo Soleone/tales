@@ -1,8 +1,8 @@
-import { createStore } from "vuex"
-import Action from "@/models/action.js"
-import * as data from "./modules/data.js"
-import { mutations } from "./mutations.js"
-import { actions } from "./actions.js"
+import { createStore } from 'vuex'
+import Action from '@/models/action.js'
+import * as data from './modules/data.js'
+import { mutations } from './mutations.js'
+import { actions } from './actions.js'
 
 export default createStore({
   modules: {
@@ -20,7 +20,9 @@ export default createStore({
       })
     },
     options(state, getters) {
-      return getters.moment.options
+      return getters.filterByContext(state.data.options, {
+        moment: getters.moment
+      })
     },
     actions(state, getters) {
       return getters.options.map(option => new Action(option))
@@ -30,6 +32,14 @@ export default createStore({
     },
     itemById: state => itemId => {
       return state.data.items.find(item => item.id === itemId)
+    },
+    filterByContext: state => (options, currentContext) => {
+      // TODO: Extract this into library, doesn't need access to state
+      return options.filter(option => {
+        return option.contexts.find(context => {
+          return context.moment === currentContext.moment.id
+        })
+      })
     }
   },
   state: {
@@ -44,7 +54,7 @@ export default createStore({
     },
     result: null,
     player: {
-      name: "",
+      name: '',
       items: []
     }
   }

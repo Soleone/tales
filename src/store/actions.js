@@ -1,4 +1,4 @@
-import * as Constants from "./constants.js"
+import * as Constants from './constants.js'
 
 export const actions = {
   [Constants.NEW_GAME]({ commit }) {
@@ -45,21 +45,26 @@ export const actions = {
     dispatch(Constants.MARK_ACTION_AS_DONE, action.id)
   },
   [Constants.HANDLE_ITEM]({ state, dispatch, getters }, itemId) {
-    let momentItem = null
-    if (getters.moment.items) {
-      momentItem = getters.moment.items.find(item => item.id === itemId)
+    const item = getters.itemById(itemId)
+
+    if (!item) {
+      return
     }
-    if (momentItem) {
-      if (momentItem.result) {
-        dispatch(Constants.SET_RESULT, momentItem.result)
+
+    const options = getters.filterByContext(item.options, {
+      moment: getters.moment
+    })
+    const option = options[0]
+    if (option) {
+      if (option.result) {
+        dispatch(Constants.SET_RESULT, option.result)
       }
 
-      if (momentItem.moment) {
-        dispatch(Constants.TRANSITION_MOMENT, momentItem.moment)
+      if (option.moment) {
+        dispatch(Constants.TRANSITION_MOMENT, option.moment)
       }
     } else {
-      const globalItem = state.data.items.find(item => item.id === itemId)
-      const messages = globalItem.usageMessages
+      const messages = item.usageMessages
       const message = messages[Math.floor(Math.random() * messages.length)]
 
       dispatch(Constants.SET_RESULT, message)
